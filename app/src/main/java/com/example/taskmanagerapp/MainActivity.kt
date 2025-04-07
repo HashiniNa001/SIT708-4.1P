@@ -20,11 +20,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val adapter = TaskAdapter(emptyList()) { task ->
-            val intent = Intent(this, AddEditTaskActivity::class.java)
-            intent.putExtra("task_id", task.id)
-            startActivity(intent)
-        }
+        val adapter = TaskAdapter(
+            emptyList(),
+            onClick = { task ->
+                // Open Edit screen
+                val intent = Intent(this, AddEditTaskActivity::class.java)
+                intent.putExtra("task_id", task.id)
+                startActivity(intent)
+            },
+            onLongClick = { task ->
+                // Delete the task via ViewModel
+                taskViewModel.delete(task)
+            }
+        )
+
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
