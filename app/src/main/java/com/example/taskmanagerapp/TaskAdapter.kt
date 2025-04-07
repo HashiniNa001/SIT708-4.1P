@@ -20,7 +20,6 @@ class TaskAdapter(private var taskList: List<Task>, private val onClick: (Task) 
 
     override fun getItemCount(): Int = taskList.size
 
-
     fun updateTaskList(newList: List<Task>) {
         taskList = newList
         notifyDataSetChanged()

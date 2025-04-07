@@ -22,4 +22,8 @@ interface TaskDao {
     // Get all tasks, sorted by due date
     @Query("SELECT * FROM tasks ORDER BY dueDate ASC")
     fun getAllTasks(): LiveData<List<Task>>
+
+    @Query("SELECT * FROM tasks WHERE id = :id")
+    fun getTaskById(id: Int): LiveData<Task>
+
 }

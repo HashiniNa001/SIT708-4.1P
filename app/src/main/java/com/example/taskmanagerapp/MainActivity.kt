@@ -21,7 +21,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val adapter = TaskAdapter(emptyList()) { task ->
-            // Handle task click (open Task Detail or Edit)
+            val intent = Intent(this, AddEditTaskActivity::class.java)
+            intent.putExtra("task_id", task.id)
+            startActivity(intent)
         }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
@@ -29,7 +31,6 @@ class MainActivity : AppCompatActivity() {
 
         taskViewModel.allTasks.observe(this, Observer { tasks ->
             tasks?.let {
-                // Update the adapter's task list
                 adapter.updateTaskList(it)
             }
         })
@@ -38,6 +39,5 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AddEditTaskActivity::class.java)
             startActivity(intent)
         }
-
     }
 }

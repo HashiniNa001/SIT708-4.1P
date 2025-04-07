@@ -21,5 +21,8 @@ class TaskRepository(private val taskDao: TaskDao) {
     suspend fun delete(task: Task) {
         taskDao.delete(task)
     }
+
+    fun getTaskById(id: Int): LiveData<Task> = taskDao.getTaskById(id)
+
 }
 
